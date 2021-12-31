@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knote2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: knote2
+  template:
+    metadata:
+      labels:
+        app: knote2
+    spec:
+      containers:
+        - name: app
+          image: harilearning1989/spring-gradle-jar
+          ports:
+            - containerPort: 8081
+          imagePullPolicy: Always
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  annotations: {}
+  labels:
+    app: knote2
+  name: knote2
+spec:
+  ports:
+    - name: knote2
+      port: 8081
+      protocol: "TCP"
+      targetPort: 8081
+  selector:
+    app: knote2
+  type: "ClusterIP"

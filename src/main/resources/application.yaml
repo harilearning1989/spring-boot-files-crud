@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    banner-mode: off
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+
+jobs:
+  mediafiles:
+    imagesPurgeJob:
+      enable: true
+      schedule: 0 0 0/12 * * ?
+csv:
+  read:
+    readCsv: Read Successfully
+
+logging:
+  file:
+    name: D:/Workspace/IntelliJ/SpringReadWriteFile.log
+  pattern:
+    rolling-file-name: SpringReadWriteFile-%d{yyyy-MM-dd}.%i.log
+  max-size: 1MB
+  total-size-cap: 10MB
+  max-history: 30
+  clean-history-on-start: true
