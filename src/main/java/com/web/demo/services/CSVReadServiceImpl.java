@@ -113,8 +113,8 @@ public class CSVReadServiceImpl implements CSVReadService {
     }
 
     @Override
-    public List<CountriesDTO> readCountriesRegions() {
-        CompletableFuture<List<CountriesDTO>> cropFuture = supplyAsync(new ReadCountriesSupplier());
+    public List<CountriesOldDTO> readCountriesRegions() {
+        CompletableFuture<List<CountriesOldDTO>> cropFuture = supplyAsync(new ReadCountriesSupplier());
         try {
             return cropFuture.get();
         } catch (InterruptedException e) {

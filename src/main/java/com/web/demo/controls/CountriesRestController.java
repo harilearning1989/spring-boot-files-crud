@@ -1,6 +1,7 @@
 package com.web.demo.controls;
 
 import com.web.demo.dtos.CountriesDTO;
+import com.web.demo.dtos.CountriesOldDTO;
 import com.web.demo.services.CountriesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

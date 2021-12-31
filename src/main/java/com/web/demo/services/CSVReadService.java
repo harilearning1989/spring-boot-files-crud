@@ -12,7 +12,7 @@ public interface CSVReadService {
 
     public List<StudentDTO> readStudentInfo();
 
-    public List<CountriesDTO> readCountriesRegions();
+    public List<CountriesOldDTO> readCountriesRegions();
 
     public List<SalesOrderDTO> readSalesOrderDetails();
 

@@ -110,8 +110,8 @@ public class CSVReadRestController {
     }
 
     @GetMapping(value = "/readCountry")
-    public List<CountriesDTO> readCountryCSV() {
-        CompletableFuture<List<CountriesDTO>> countriesFuture =
+    public List<CountriesOldDTO> readCountryCSV() {
+        CompletableFuture<List<CountriesOldDTO>> countriesFuture =
                 supplyAsync(() -> csvReadService.readCountriesRegions());
         try {
             return countriesFuture.get();

@@ -1,57 +1,79 @@
 package com.web.demo.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CountriesDTO {
 
+    private int id;
     private String name;
-    private String alpha2;
-    private String alpha3;
-    private String countryCode;
-    private String iso3166;
+    @JsonProperty("numcode")
+    private String numericCode;
+    private String phonecode;
+    private String currency;
     private String region;
-    private String subRegion;
-    private String intermediateRegion;
-    private String regionCode;
-    private String subRegionCode;
-    private String intermediateRegionCode;
+    private String subregion;
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    @JsonProperty( value = "timezones", access = JsonProperty.Access.WRITE_ONLY)
+    private String timezones;
+    private Map<String,List<TimeZoneDTO>> timezonesMap = new HashMap<>();
+    private List<TimeZoneDTO> timezonesList;
+    private int timeZoneSize;
+    private String emoji;
+    private String capital;
+
+    public int getTimeZoneSize() {
+        return timeZoneSize;
+    }
+
+    public void setTimeZoneSize(int timeZoneSize) {
+        this.timeZoneSize = timeZoneSize;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
+    }
+
+    public String getNumericCode() {
+        return numericCode;
+    }
+
+    public void setNumericCode(String numericCode) {
+        this.numericCode = numericCode;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getAlpha2() {
-        return alpha2;
+    public String getPhonecode() {
+        return phonecode;
     }
 
-    public void setAlpha2(String alpha2) {
-        this.alpha2 = alpha2;
+    public void setPhonecode(String phonecode) {
+        this.phonecode = phonecode;
     }
 
-    public String getAlpha3() {
-        return alpha3;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setAlpha3(String alpha3) {
-        this.alpha3 = alpha3;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getIso3166() {
-        return iso3166;
-    }
-
-    public void setIso3166(String iso3166) {
-        this.iso3166 = iso3166;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getRegion() {
@@ -62,43 +84,57 @@ public class CountriesDTO {
         this.region = region;
     }
 
-    public String getSubRegion() {
-        return subRegion;
+    public String getSubregion() {
+        return subregion;
     }
 
-    public void setSubRegion(String subRegion) {
-        this.subRegion = subRegion;
+    public void setSubregion(String subregion) {
+        this.subregion = subregion;
     }
 
-    public String getIntermediateRegion() {
-        return intermediateRegion;
+    public String getTimezones() {
+        return timezones;
     }
 
-    public void setIntermediateRegion(String intermediateRegion) {
-        this.intermediateRegion = intermediateRegion;
+    public void setTimezones(String timezones) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<TimeZoneDTO> timeZoneDTO = objectMapper.readValue(timezones, new TypeReference<List<TimeZoneDTO>>(){});
+            //System.out.println(timeZoneDTO);
+            timezonesMap.put(this.name,timeZoneDTO);
+            setTimezonesList(timeZoneDTO);
+            setTimeZoneSize(timeZoneDTO.size());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        this.timezones = timezones;
     }
 
-    public String getRegionCode() {
-        return regionCode;
+    public String getEmoji() {
+        return emoji;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setEmoji(String emoji) {
+        this.emoji = emoji;
     }
 
-    public String getSubRegionCode() {
-        return subRegionCode;
+    /*public Map<String, List<TimeZoneDTO>> getTimezonesMap() {
+        return timezonesMap;
+    }*/
+
+    public String getCapital() {
+        return capital;
     }
 
-    public void setSubRegionCode(String subRegionCode) {
-        this.subRegionCode = subRegionCode;
+    public void setCapital(String capital) {
+        this.capital = capital;
     }
 
-    public String getIntermediateRegionCode() {
-        return intermediateRegionCode;
+    public List<TimeZoneDTO> getTimezonesList() {
+        return timezonesList;
     }
 
-    public void setIntermediateRegionCode(String intermediateRegionCode) {
-        this.intermediateRegionCode = intermediateRegionCode;
+    public void setTimezonesList(List<TimeZoneDTO> timezonesList) {
+        this.timezonesList = timezonesList;
     }
 }
